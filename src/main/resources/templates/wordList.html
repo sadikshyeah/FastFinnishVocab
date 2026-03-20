@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Word List</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h1>Word List</h1>
+
+    <table border="1">
+        <tr>
+            <th>Finnish Word</th>
+            <th>English Meaning</th>
+            <th>Example</th>
+        </tr>
+
+        <tr th:each="word : ${words}">
+            <td th:text="${word.wordFi}"></td>
+            <td th:text="${word.definitionEn}"></td>
+            <td th:text="${word.example}"></td>
+        </tr>
+    </table>
+
+</body>
+</html>
