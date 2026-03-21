@@ -37,12 +37,12 @@ public class Word {
         this.wordFi = wordFi;
     }
 
-    public String getDefinitionFn() {
+    public String getDefinitionEn() {
         return definitionEn;
     }
 
-    public void setDefinitionFn(String definitionFn) {
-        this.definitionEn = definitionFn;
+    public void setDefinitionEn(String definitionEn) {
+        this.definitionEn = definitionEn;
     }
 
     public String getExample() {
@@ -52,6 +52,6 @@ public class Word {
     public void setExample(String example) {
         this.example = example;
     }
-
+    
     
 }
