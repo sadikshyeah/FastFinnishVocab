@@ -19,6 +19,7 @@ public class Word {
     public Word() {}
 
     public Word(String wordFi, String definitionEn, String example) {
+        super();
         this.wordFi = wordFi;
         this.definitionEn = definitionEn;
         this.example = example;
@@ -27,6 +28,10 @@ public class Word {
     // getters and setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getWordFi() {
