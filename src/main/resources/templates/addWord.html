@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Word</title>
+</head>
+<body>
+
+<h2>Add New Word</h2>
+
+<form th:action="@{/save}" th:object="${word}" method="post">
+
+    Finnish: <input type="text" th:field="*{wordFi}" /><br>
+    English: <input type="text" th:field="*{definitionEn}" /><br>
+    Example: <input type="text" th:field="*{example}" /><br>
+
+    <button type="submit">Save</button>
+
+</form>
+
+</body>
+</html>
