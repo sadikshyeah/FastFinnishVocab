@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Word List</title>
     <meta charset="UTF-8">
 </head>
+
 <body>
 
     <h1>Word List</h1>
@@ -13,16 +15,20 @@
             <th>Finnish Word</th>
             <th>English Meaning</th>
             <th>Example</th>
+            <th>Actions</th>
         </tr>
 
         <tr th:each="word : ${words}">
             <td th:text="${word.wordFi}"></td>
             <td th:text="${word.definitionEn}"></td>
             <td th:text="${word.example}"></td>
+            <td>
+                <a th:href="@{/edit/{id}(id=${word.id})}">Edit</a>
+                <a th:href="@{/delete/{id}(id=${word.id})}">Delete</a>
+            </td>
         </tr>
     </table>
-
      <a href="/add" class="btn btn-primary">Add Word</a>
-
 </body>
+
 </html>
