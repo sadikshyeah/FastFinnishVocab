@@ -1,6 +1,7 @@
 package my.project.vocab.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +15,23 @@ import my.project.vocab.domain.WordRepository;
 public class WordController {
     @Autowired
     private WordRepository repository; 
-    
+
+
+     @Secured("ROLE_ADMIN")
     @RequestMapping(value= {"/", "/wordlist"})
     public String wordList(Model model) {    
         model.addAttribute("words", repository.findAll());
         return "wordList";
     }
+
+     @Secured("ROLE_ADMIN")
     @RequestMapping("/add")
     public String addWord(Model model) {
         model.addAttribute("word", new Word());
         return "addword";
     }
     // CREATE - save
+     @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Word word) {
         repository.save(word);
@@ -33,6 +39,7 @@ public class WordController {
     }
 
     // DELETE
+     @Secured("ROLE_ADMIN")
     @RequestMapping("/delete/{id}")
     public String deleteWord(@PathVariable("id") Long id) {
         repository.deleteById(id);
@@ -40,6 +47,7 @@ public class WordController {
     }
 
     // UPDATE - show edit form
+     @Secured("ROLE_ADMIN")
     @RequestMapping("/edit/{id}")
     public String editWord(@PathVariable("id") Long id, Model model) {
         model.addAttribute("word", repository.findById(id).orElse(null));

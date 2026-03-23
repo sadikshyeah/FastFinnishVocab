@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <title>Word List</title>
@@ -9,6 +10,16 @@
 <body>
 
     <h1>Word List</h1>
+    <div class="col-md-4">
+        Welcome
+        <span sec:authentication="name">Username</span>
+    </div>
+	<div class="col-md-4" style="padding:20px 0">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"
+                   class="btn btn-sm btn-danger"/>
+        </form>
+    </div>
 
     <table border="1">
         <tr>
@@ -16,6 +27,7 @@
             <th>English Meaning</th>
             <th>Example</th>
             <th>Actions</th>
+    
         </tr>
 
         <tr th:each="word : ${words}">

@@ -6,7 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import my.project.vocab.domain.User;
+import my.project.vocab.domain.UserRepository;
 import my.project.vocab.domain.Word;
 import my.project.vocab.domain.WordRepository;
 
@@ -33,4 +36,31 @@ public class VocabApplication {
 			}
 		};
 	}
+
+	@Bean
+public CommandLineRunner userDemo(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    return (args) -> {
+        log.info("Creating users");
+
+        if (userRepository.findByUsername("admin") == null) {
+            userRepository.save(new User(
+                "admin",
+                passwordEncoder.encode("admin"),
+                "admin@VocabApplication.com",
+                "ROLE_ADMIN"
+            ));
+        }
+
+        if (userRepository.findByUsername("user") == null) {
+            userRepository.save(new User(
+                "user",
+                passwordEncoder.encode("user"),
+                "user@VocabApplication.com",
+                "ROLE_USER"
+            ));
+        }
+
+        log.info("Users created successfully");
+    };
+}
 }
