@@ -10,57 +10,51 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import my.project.vocab.domain.User;
 import my.project.vocab.domain.UserRepository;
-import my.project.vocab.domain.Word;
 import my.project.vocab.domain.WordRepository;
+import my.project.vocab.domain.LevelRepository;
+import my.project.vocab.seeder.DatabaseSeeder;
 
 @SpringBootApplication
 public class VocabApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(VocabApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(VocabApplication.class);
 
-	public static void main(String[] args) {
-		SpringApplication.run(VocabApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(VocabApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner demo(WordRepository repository) {
-		return (args) -> {
-			log.info("save a couple of words");
+    @Bean
+    public CommandLineRunner demo(DatabaseSeeder seeder, WordRepository wordRepo, LevelRepository levelRepo) {
+        return (args) -> {
+            if (args.length > 0 && args[0].equals("seed")) {
+                log.info("Seeding database with initial data...");
+                seeder.seed(wordRepo, levelRepo);
+            }
+        };
+    }
 
-			repository.save(new Word("kissa", "cat", "Kissa on söpö"));
-			repository.save(new Word("koira", "dog", "Koira haukkuu"));
+    @Bean
+    public CommandLineRunner userDemo(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return (args) -> {
+            log.info("Creating users");
 
-			log.info("fetch all words");
-			for (Word word : repository.findAll()) {
-				log.info(word.toString());
-			}
-		};
-	}
+            if (userRepository.findByUsername("admin") == null) {
+                userRepository.save(new User(
+                        "admin",
+                        passwordEncoder.encode("admin"),
+                        "admin@VocabApplication.com",
+                        "ROLE_ADMIN"));
+            }
 
-	@Bean
-public CommandLineRunner userDemo(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-    return (args) -> {
-        log.info("Creating users");
+            if (userRepository.findByUsername("user") == null) {
+                userRepository.save(new User(
+                        "user",
+                        passwordEncoder.encode("user"),
+                        "user@VocabApplication.com",
+                        "ROLE_USER"));
+            }
 
-        if (userRepository.findByUsername("admin") == null) {
-            userRepository.save(new User(
-                "admin",
-                passwordEncoder.encode("admin"),
-                "admin@VocabApplication.com",
-                "ROLE_ADMIN"
-            ));
-        }
-
-        if (userRepository.findByUsername("user") == null) {
-            userRepository.save(new User(
-                "user",
-                passwordEncoder.encode("user"),
-                "user@VocabApplication.com",
-                "ROLE_USER"
-            ));
-        }
-
-        log.info("Users created successfully");
-    };
-}
+            log.info("Users created successfully");
+        };
+    }
 }
