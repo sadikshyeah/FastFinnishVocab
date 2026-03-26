@@ -5,24 +5,30 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "words")
 public class Word {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
     private String wordFi;
-    
+
     private String definitionEn;
     private String example;
 
-    public Word() {}
+    @ManyToOne
+    @JoinColumn(name = "levels_id")
+    private Level level;
 
-    public Word(String wordFi, String definitionEn, String example) {
+    public Word() {
+    }
+
+    public Word(String wordFi, String definitionEn, String example, Level level) {
         super();
         this.wordFi = wordFi;
         this.definitionEn = definitionEn;
         this.example = example;
+        this.level = level;
     }
 
     // getters and setters
@@ -57,6 +63,12 @@ public class Word {
     public void setExample(String example) {
         this.example = example;
     }
-    
-    
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 }
