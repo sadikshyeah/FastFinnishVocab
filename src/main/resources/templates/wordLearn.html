@@ -13,8 +13,14 @@
     <h1>Learn Words</h1>
 
     <h3>Choose your Finnish level to learn Vocab</h3>
-    <ul>
-     
-    </ul>
+    <select name="level" onchange="window.location.href='/words?level=' + this.value">
+        <option value="" disabled selected>Select your level</option>
+        <option value="a1">A1</option>
+        <option value="a2">A2</option>
+        <option value="b1">B1</option>
+        <option value="b2">B2</option>
+        <option value="c1">C1</option>
+        <option value="c2">C2</option>
+    </select>
 </body>
 </html>
