@@ -23,12 +23,12 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, String email, String role) {
+    public User(String username, String password, String email, String role, String level) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
-        this.level = "A1"; // A1 | A2 | B1 | B2 | C1 | C2, default to A1
+        this.level = level;
     }
 
     // getters and setters
