@@ -1,5 +1,7 @@
 package my.project.vocab.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -8,18 +10,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import my.project.vocab.domain.User;
 import my.project.vocab.domain.Word;
 import my.project.vocab.domain.WordRepository;
+import my.project.vocab.domain.UserRepository;
 
 @Controller
 public class WordController {
     @Autowired
     private WordRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Secured("ROLE_USER")
     @RequestMapping("/learn")
-    public String wordLearn(Model model) {
+    public String wordLearn(Model model, Authentication auth) {
+
+        String username = auth.getName();
+
+        User user = userRepository.findByUsername(username);
+
+        // If level is not set, go to setLevel page
+        if (user.getLevel() == null) {
+            model.addAttribute("user", user);
+            return "setLevel";
+        }
+
+        // If level exists, show learning page
         model.addAttribute("words", repository.findAll());
         return "wordLearn";
     }
@@ -29,11 +49,29 @@ public class WordController {
     public String wordList(Model model, Authentication auth) {
         model.addAttribute("words", repository.findAll());
         
+        // Check if the user has the admin role
+        // If admin, show the word list with edit/delete options, otherwise redirect to learn page
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             return "wordList"; // Admin view
         } else {
             return "redirect:/learn"; // Regular user view
         }
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/setLevel", method = RequestMethod.POST)
+    public String setLevel(@RequestParam("level") String level,
+                        Principal principal) {
+
+        String username = principal.getName();
+
+        User user = userRepository.findByUsername(username);
+
+        user.setLevel(level);
+
+        userRepository.save(user);
+
+        return "redirect:/learn";
     }
 
     @Secured("ROLE_ADMIN")
