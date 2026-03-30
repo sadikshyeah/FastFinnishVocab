@@ -32,15 +32,15 @@ public class WordController {
         String username = auth.getName();
 
         User user = userRepository.findByUsername(username);
-
+        
+        model.addAttribute("user", user);
         // If level is not set, go to setLevel page
         if (user.getLevel() == null) {
-            model.addAttribute("user", user);
+
             return "setLevel";
         }
 
         // If level exists, show learning page
-        model.addAttribute("words", repository.findAll());
         return "wordLearn";
     }
 
