@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import my.project.vocab.domain.Level;
+import my.project.vocab.domain.LevelRepository;
 import my.project.vocab.domain.User;
 import my.project.vocab.domain.Word;
 import my.project.vocab.domain.WordRepository;
@@ -24,6 +26,9 @@ public class WordController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private LevelRepository levelRepository;
 
     @Secured("ROLE_USER")
     @RequestMapping("/learn")
@@ -67,7 +72,11 @@ public class WordController {
 
         User user = userRepository.findByUsername(username);
 
-        user.setLevel(level);
+        Level levelEntity = levelRepository.findByName(level);
+        if (levelEntity == null) {
+            return "setLevel";
+        }
+        user.setLevel(levelEntity);
 
         userRepository.save(user);
 

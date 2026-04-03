@@ -13,8 +13,8 @@
         <h1>Welcome to your Finnish vocabulary learning journey!</h1>
 
         <h3>Choose your current Finnish proficiency level</h3>
-        <form th:action="@{/setLevel}" th:object="${user}" method="post">
-            <select name="level" th:field="*{level}" required>
+        <form th:action="@{/setLevel}" method="post">
+            <select name="level" required>
                 <option value="" disabled selected>Select</option>
                 <option value="A1">A1</option>
                 <option value="A2">A2</option>

@@ -19,11 +19,13 @@ public class User {
 
     private String role;
 
-    private String level;
+    @ManyToOne
+    @JoinColumn(name = "levels_id")
+    private Level level;
 
     public User() {}
 
-    public User(String username, String password, String email, String role, String level) {
+    public User(String username, String password, String email, String role, Level level) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -68,11 +70,11 @@ public class User {
         this.role = role;
     }
 
-    public String getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 }

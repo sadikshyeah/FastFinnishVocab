@@ -17,6 +17,9 @@ public class Level {
     @OneToMany(mappedBy = "level")
     private List<Word> words;
 
+    @OneToMany(mappedBy = "level")
+    private List<User> users;
+
     public Level() {}
 
     public Level(String name) {
@@ -33,4 +36,8 @@ public class Level {
     public List<Word> getWords() { return words; }
 
     public void setWords(List<Word> words) { this.words = words; }
+
+    public List<User> getUsers() { return users; }
+
+    public void setUsers(List<User> users) { this.users = users; }
 }
