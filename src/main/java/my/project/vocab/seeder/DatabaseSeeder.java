@@ -22,11 +22,7 @@ public class DatabaseSeeder {
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseSeeder.class);
 
-    private final ObjectMapper objectMapper;
-
-    public DatabaseSeeder(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public void seed(WordRepository wordRepo, LevelRepository levelRepo) {
         log.info("Seeding database...");

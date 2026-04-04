@@ -45,7 +45,10 @@ public class WordController {
             return "setLevel";
         }
 
-        // If level exists, show learning page
+        // Find a random word for the user's level and show it on the learning page
+        model.addAttribute("word",
+                repository.findRandomByLevelId(user.getLevel().getId()).orElse(null));
+
         return "wordLearn";
     }
 
