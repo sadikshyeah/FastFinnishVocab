@@ -13,6 +13,16 @@
     <h1>Learn Words</h1>
 
     <h3>Your level is <span th:text="${user.level.name}"></span></h3>
-    
+
+    <div th:if="${word != null}">
+        <p><strong>Finnish:</strong> <span th:text="${word.wordFi}">sana</span></p>
+        <p><strong>English:</strong> <span th:text="${word.definitionEn}">meaning</span></p>
+        <p><strong>Example:</strong> <span th:text="${word.example}">example</span></p>
+        <p>
+            <a th:href="@{/learn}" class="btn btn-primary">Next word</a>
+        </p>
+    </div>
+    <p th:if="${word == null}">No words are available for your level yet.</p>
+
 </body>
 </html>
