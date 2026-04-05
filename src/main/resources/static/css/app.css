@@ -1,0 +1,69 @@
+
+/**
+    * AI-assisted CSS style for Fast Finnish Vocab app
+**/
+
+:root {
+    --ff-app: "DM Sans", system-ui, -apple-system, sans-serif;
+    --navbar-bg: #0f172a;
+    --surface: #ffffff;
+    --text-muted-custom: #64748b;
+}
+
+body {
+    font-family: var(--ff-app);
+    background: linear-gradient(160deg, #f1f5f9 0%, #e2e8f0 50%, #f8fafc 100%);
+    min-height: 100vh;
+}
+
+.bg-navbar {
+    background-color: var(--navbar-bg) !important;
+}
+
+.app-main {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.card-learn {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+}
+
+.card-learn .display-word {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+}
+
+.label-muted {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted-custom);
+}
+
+.table-words thead th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted-custom);
+    border-bottom-width: 1px;
+}
+
+.table-words tbody tr:hover {
+    background-color: rgba(15, 23, 42, 0.03);
+}
+
+.btn-action {
+    min-width: 4.5rem;
+}
+
+.page-heading {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #0f172a;
+}
