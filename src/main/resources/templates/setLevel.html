@@ -1,29 +1,45 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Learn Words</title>
-    </head>
-    <body>
-            <div class="col-md-4" style="padding:20px 0">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"
-                    class="btn btn-sm btn-danger"/>
-            </form>
-        </div>
-        <h1>Welcome to your Finnish vocabulary learning journey!</h1>
+/**
+    * AI-assisted frontend for Fast Finnish Vocab app
+**/
 
-        <h3>Choose your current Finnish proficiency level</h3>
-        <form th:action="@{/setLevel}" method="post">
-            <select name="level" required>
-                <option value="" disabled selected>Select</option>
-                <option value="A1">A1</option>
-                <option value="A2">A2</option>
-                <option value="B1">B1</option>
-                <option value="B2">B2</option>
-                <option value="C1">C1</option>
-                <option value="C2">C2</option>
-            </select>
-            <button type="submit" style="margin-left: 10px;">Start Learning</button>
-        </form>
-    </body>
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{fragments/layout :: head (pageTitle='Choose level')}">
+    <title>Choose level</title>
+</head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container app-main">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card border-0 shadow-sm rounded-3 card-learn">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="page-heading h3 mb-2">Welcome</h1>
+                    <p class="text-secondary mb-4">Pick your current Finnish level to get words that match where you are.</p>
+                    <form th:action="@{/setLevel}" method="post" class="vstack gap-3">
+                        <div>
+                            <label for="level" class="form-label fw-medium">Proficiency level</label>
+                            <select id="level" name="level" class="form-select form-select-lg" required>
+                                <option value="" disabled selected>Select a level</option>
+                                <option value="A1">A1 — Beginner</option>
+                                <option value="A2">A2 — Elementary</option>
+                                <option value="B1">B1 — Intermediate</option>
+                                <option value="B2">B2 — Upper intermediate</option>
+                                <option value="C1">C1 — Advanced</option>
+                                <option value="C2">C2 — Proficient</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Start learning</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
 </html>

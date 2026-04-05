@@ -90,7 +90,7 @@ public class WordController {
     @RequestMapping("/add")
     public String addWord(Model model) {
         model.addAttribute("word", new Word());
-        return "addword";
+        return "addWord";
     }
 
     // CREATE - save
@@ -114,7 +114,7 @@ public class WordController {
     @RequestMapping("/edit/{id}")
     public String editWord(@PathVariable("id") Long id, Model model) {
         model.addAttribute("word", repository.findById(id).orElse(null));
-        return "editword";
+        return "editWord";
     }
 
 }
