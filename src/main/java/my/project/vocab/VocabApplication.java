@@ -43,7 +43,7 @@ public class VocabApplication {
                         "admin",
                         passwordEncoder.encode("admin"),
                         "admin@VocabApplication.com",
-                        "ROLE_ADMIN", null));
+                        "ROLE_ADMIN", null, true));
             }
 
             if (userRepository.findByUsername("user") == null) {
@@ -51,7 +51,7 @@ public class VocabApplication {
                         "user",
                         passwordEncoder.encode("user"),
                         "user@VocabApplication.com",
-                        "ROLE_USER",null));
+                        "ROLE_USER", null, true));
             }
 
             log.info("Users created successfully");

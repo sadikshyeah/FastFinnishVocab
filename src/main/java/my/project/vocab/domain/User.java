@@ -1,6 +1,13 @@
 package my.project.vocab.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -13,11 +20,25 @@ public class User {
     @Column(unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(unique = true)
     private String email;
 
     private String role;
+
+    // New users are blocked from login until they verify email.
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = false;
+
+    // Token used in "forgot password" flow.
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    // Token used in email verification flow.
+    @Column(name = "verification_token")
+    private String verificationToken;
 
     @ManyToOne
     @JoinColumn(name = "levels_id")
@@ -25,15 +46,15 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, String email, String role, Level level) {
+    public User(String username, String password, String email, String role, Level level, boolean enabled) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
         this.level = level;
+        this.enabled = enabled;
     }
 
-    // getters and setters
     public Long getId() {
         return id;
     }
@@ -77,6 +98,28 @@ public class User {
     public void setLevel(Level level) {
         this.level = level;
     }
-}
-    
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+}
