@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head (pageTitle='Sign up')}">
+    <title>Sign up</title>
+</head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<main class="container app-main">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            <h1 class="page-heading h4 mb-3">Sign up</h1>
+
+            <div class="alert alert-warning" th:if="${message != null}">
+                <p class="mb-0" th:text="${message}">Message</p>
+            </div>
+
+            <form th:object="${signupform}" th:action="@{/saveuser}" method="post" class="d-grid gap-3">
+                <div>
+                    <label class="form-label small fw-semibold" for="username">Username</label>
+                    <input type="text" th:field="*{username}" id="username" class="form-control" autofocus/>
+                    <p class="text-danger small mb-0 mt-1" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+                </div>
+                <div>
+                    <label class="form-label small fw-semibold" for="email">Email</label>
+                    <input type="email" th:field="*{email}" id="email" class="form-control"/>
+                    <p class="text-danger small mb-0 mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+                </div>
+                <div>
+                    <label class="form-label small fw-semibold" for="password">Password</label>
+                    <input type="password" th:field="*{password}" id="password" class="form-control" autocomplete="new-password"/>
+                    <p class="text-danger small mb-0 mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+                </div>
+                <div>
+                    <label class="form-label small fw-semibold" for="passwordCheck">Re-type password</label>
+                    <input type="password" th:field="*{passwordCheck}" id="passwordCheck" class="form-control" autocomplete="new-password"/>
+                    <p class="text-danger small mb-0 mt-1" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+
+            <p class="small text-secondary mt-4 mb-0">
+                <a th:href="@{/login}">Sign in</a>
+                ·
+                <a th:href="@{/forgot_password}">Forgot your password?</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
