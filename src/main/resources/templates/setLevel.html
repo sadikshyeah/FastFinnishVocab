@@ -15,22 +15,25 @@
         <div class="col-lg-6 col-md-8">
             <div class="card border-0 shadow-sm rounded-3 card-learn">
                 <div class="card-body p-4 p-md-5">
-                    <h1 class="page-heading h3 mb-2">Welcome</h1>
-                    <p class="text-secondary mb-4">Pick your current Finnish level to get words that match where you are.</p>
+                    <h1 class="page-heading h3 mb-2" th:text="${hasLevel} ? 'Change your level' : 'Welcome'">Welcome</h1>
+                    <p class="text-secondary mb-4"
+                       th:text="${hasLevel} ? 'Pick a new level any time. Your word list will match the level you choose.' : 'Pick your current Finnish level to get words that match where you are.'">
+                        Pick your current Finnish level to get words that match where you are.
+                    </p>
                     <form th:action="@{/setLevel}" method="post" class="vstack gap-3">
                         <div>
                             <label for="level" class="form-label fw-medium">Proficiency level</label>
                             <select id="level" name="level" class="form-select form-select-lg" required>
-                                <option value="" disabled selected>Select a level</option>
-                                <option value="A1">A1 — Beginner</option>
-                                <option value="A2">A2 — Elementary</option>
-                                <option value="B1">B1 — Intermediate</option>
-                                <option value="B2">B2 — Upper intermediate</option>
-                                <option value="C1">C1 — Advanced</option>
-                                <option value="C2">C2 — Proficient</option>
+                                <option th:if="${!hasLevel}" value="" disabled selected>Select a level</option>
+                                <option value="A1" th:selected="${currentLevelName == 'A1'}">A1 — Beginner</option>
+                                <option value="A2" th:selected="${currentLevelName == 'A2'}">A2 — Elementary</option>
+                                <option value="B1" th:selected="${currentLevelName == 'B1'}">B1 — Intermediate</option>
+                                <option value="B2" th:selected="${currentLevelName == 'B2'}">B2 — Upper intermediate</option>
+                                <option value="C1" th:selected="${currentLevelName == 'C1'}">C1 — Advanced</option>
+                                <option value="C2" th:selected="${currentLevelName == 'C2'}">C2 — Proficient</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg">Start learning</button>
+                        <button type="submit" class="btn btn-primary btn-lg" th:text="${hasLevel} ? 'Save level' : 'Start learning'">Start learning</button>
                     </form>
                 </div>
             </div>

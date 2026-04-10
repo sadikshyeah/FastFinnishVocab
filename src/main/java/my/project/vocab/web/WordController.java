@@ -39,10 +39,8 @@ public class WordController {
         User user = userRepository.findByUsername(username);
         
         model.addAttribute("user", user);
-        // If level is not set, go to setLevel page
         if (user.getLevel() == null) {
-
-            return "setLevel";
+            return "redirect:/setLevel";
         }
 
         // Find a random word for the user's level and show it on the learning page
@@ -67,6 +65,17 @@ public class WordController {
     }
 
     @Secured("ROLE_USER")
+    @RequestMapping(value = "/setLevel", method = RequestMethod.GET)
+    public String setLevelForm(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        if (user.getLevel() != null) {
+            model.addAttribute("currentLevelName", user.getLevel().getName());
+        }
+        model.addAttribute("hasLevel", user.getLevel() != null);
+        return "setLevel";
+    }
+
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/setLevel", method = RequestMethod.POST)
     public String setLevel(@RequestParam("level") String level,
                         Principal principal) {
@@ -77,7 +86,7 @@ public class WordController {
 
         Level levelEntity = levelRepository.findByName(level);
         if (levelEntity == null) {
-            return "setLevel";
+            return "redirect:/setLevel";
         }
         user.setLevel(levelEntity);
 
