@@ -1,12 +1,42 @@
 # Fast Finnish Vocab
 
-Fast Finnish Vocab is a web application for practicing Finnish vocabulary. Learners work through words matched to a proficiency level (A1 through C2). Administrators maintain the word list in the same app.
+A full-stack learning app with focus on backend where users practice Finnish vocabulary by level (A1–C2), with secure authentication, email verification, and admin tooling. Built with Spring Boot 4, Thymeleaf, Spring Security, Spring Data JPA, and PostgreSQL.
 
-- Web UI built with Spring MVC and Thymeleaf (Bootstrap).
-- Users can register, verify email, sign in, reset password, choose or change their level, and open a learn view that shows a random word for that level (Finnish, English, example).
-- Admins can list, add, edit, and delete words and assign them to levels.
-- Data is stored in PostgreSQL via Spring Data JPA.
-- Access is protected with Spring Security (roles for regular users and admins).
-- Optional database seeding from JSON when the app is started with the `seed` argument.
-- Build with Maven; runnable as a Spring Boot JAR.
-  
+## Overview
+
+This project is a Spring Boot web application that lets learners pick a proficiency level and study random words (Finnish, English, and an example sentence). Administrators manage the shared word list. It implements features such as registration, login, email verification, password reset, role-based access (USER/ADMIN), a learn/practice flow, and CRUD for words grouped by level.
+
+The codebase demonstrates development skills:
+
+- **Backend:** Spring Boot, Spring MVC, Spring Data JPA, Spring Security 6  
+- **Frontend:** Thymeleaf with Bootstrap styling  
+- **Infrastructure:** PostgreSQL, JavaMail (SMTP)  
+- **Quality control:** Repository tests, environment-based config  
+
+## Tech Stack
+
+- **Language:** Java 17  
+- **Frameworks:** Spring Boot 4, Spring MVC, Spring Security 6, Spring Data JPA  
+- **Templating:** Thymeleaf + Bootstrap  
+- **Database:** PostgreSQL  
+- **Build:** Maven  
+- **Mail:** JavaMail (SMTP)  
+
+## Features
+
+- Sign up with email and password  
+- Email verification before first login  
+- Login / logout with Spring Security 6  
+- Forgot password and password reset via emailed token  
+- Choose and change Finnish level (A1–C2); learn view shows a random word for that level  
+- Create, read, update, delete words (admin); words belong to a level  
+- Role-based access: regular users vs admin  
+- Password hashing (BCrypt)  
+- PostgreSQL for persistence  
+- Optional JSON seeding when the app is started with the `seed` program argument  
+
+## Running the App
+
+1. Configure the database by updating `src/main/resources/application.properties` with your PostgreSQL URL, username, and password.  
+2. Configure email if you want to test verification and reset emails (or use options like logging links in dev, if configured).  
+3. Run the app with `mvn spring-boot:run`.  
