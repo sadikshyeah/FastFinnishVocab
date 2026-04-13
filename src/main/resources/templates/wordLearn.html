@@ -8,6 +8,36 @@
 </head>
 <body>
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
+<style>
+    .reveal-toggle {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .reveal-value {
+        display: none;
+    }
+
+    .reveal-toggle:checked ~ .reveal-value {
+        display: block;
+    }
+
+    .reveal-placeholder {
+        border: 1px dashed #cbd5e1;
+        border-radius: 0.5rem;
+        background: #f8fafc;
+        color: #64748b;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        cursor: pointer;
+    }
+
+    .reveal-toggle:checked ~ .reveal-placeholder {
+        display: none;
+    }
+</style>
 
 <main class="container app-main">
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
@@ -26,10 +56,14 @@
                 <div class="card-body p-4 p-md-5">
                     <p class="label-muted mb-1">Finnish</p>
                     <p class="display-word mb-4" th:text="${word.wordFi}">sana</p>
+                    <input class="reveal-toggle" type="checkbox" id="revealWordDetails">
                     <p class="label-muted mb-1">English</p>
-                    <p class="fs-5 mb-4" th:text="${word.definitionEn}">meaning</p>
+                    <label for="revealWordDetails" class="reveal-placeholder">Reveal meaning</label>
+                    <p class="fs-5 mb-4 reveal-value" th:text="${word.definitionEn}">meaning</p>
                     <p class="label-muted mb-1">Example</p>
-                    <p class="lead text-secondary mb-4" th:text="${word.example}">example sentence</p>
+                    <label for="revealWordDetails" class="reveal-placeholder">Reveal meaning</label>
+                    <p class="lead text-secondary mb-4 reveal-value" th:text="${word.example}">example sentence</p>
+                    <br>
                     <a th:href="@{/learn}" class="btn btn-primary btn-lg">Next word</a>
                 </div>
             </div>
